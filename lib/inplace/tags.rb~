@@ -52,7 +52,7 @@ module Inplace
                                 } else {
                                   new Effect.Highlight(element.id, {startcolor: '#ff0000'});
                                 }
-				element.innerHTML=transport.responseText.evalJSON().#{object.class.name.demodulize.tableize.singularize}.#{property};
+                                element.innerHTML=transport.responseText.evalJSON().#{property};
 
                               }"
         tg += ",#{options_for_edit}" unless options_for_edit.empty?
