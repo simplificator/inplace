@@ -2,7 +2,7 @@ Inplace
 =======
 
 = What is it
-Inplace is a simple RESTful in place editor based and tested on Rails 2.1.0.
+Inplace is a simple RESTful in place editor.
 
 = Installation
 script plugin/install ...
