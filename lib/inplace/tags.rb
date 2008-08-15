@@ -47,6 +47,7 @@ module Inplace
                               { return 'authenticity_token=#{form_authenticity_token}&#{object_name}[#{property}]=' + escape(value) },
                             onComplete: function(transport, element) 
                               {
+                                if(!transport) {return;} // thanks to Mina!
                                 if(transport.status == 200) {
                                   new Effect.Highlight(element.id, {startcolor: '#00ffff'});
                                 } else {
