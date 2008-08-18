@@ -36,6 +36,7 @@ module Inplace
       tg = content_tag(element_type, object.send(property), element_options)
 
       if editable then
+        put_params = protect_against_forgery? ?  "&authenticity_token=#{form_authenticity_token}" : ''
         tg += "
               <script type='text/javascript'>\n
                  new Ajax.InPlaceEditor(
@@ -44,7 +45,7 @@ module Inplace
                           { 
                             ajaxOptions:  {#{options_for_ajax}},
                             callback: function(form, value) 
-                              { return 'authenticity_token=#{form_authenticity_token}&#{object_name}[#{property}]=' + escape(value) },
+                              { return '#{object_name}[#{property}]=' + escape(value)+ '#{put_params}' },
                             onComplete: function(transport, element) 
                               {
                                 if(!transport) {return;} // thanks to Mina!
