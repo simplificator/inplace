@@ -37,29 +37,29 @@ module Inplace
 
       if editable then
         put_params = protect_against_forgery? ?  "&authenticity_token=#{form_authenticity_token}" : ''
-        tg += "
-              <script type='text/javascript'>\n
-                 new Ajax.InPlaceEditor(
-                          '#{element_options[:id]}',
-                          '#{url}', 
-                          { 
-                            ajaxOptions:  {#{options_for_ajax}},
-                            callback: function(form, value) 
-                              { return '#{object_name}[#{property}]=' + escape(value)+ '#{put_params}' },
-                            onComplete: function(transport, element) 
-                              {
-                                if(!transport) {return;} // thanks to Mina!
-                                if(transport.status == 200) {
-                                  new Effect.Highlight(element.id, {startcolor: '#00ffff'});
-                                } else {
-                                  new Effect.Highlight(element.id, {startcolor: '#ff0000'});
-                                }
-				element.innerHTML=transport.responseText.evalJSON().#{object.class.name.demodulize.tableize.singularize}.#{property};
-
-                              }"
+        tg += <<-EOJS
+          <script type="text/javascript">\n
+            new Ajax.InPlaceEditor(
+              "#{element_options[:id]}",
+              "#{url}", 
+              { 
+                ajaxOptions:  {#{options_for_ajax}},
+                callback: function(form, value) {
+                  return "#{object_name}[#{property}]=" + encodeURIComponent(value) + "#{put_params}"
+                },
+                onComplete: function(transport, element) {
+                  if (transport && transport.status == 200) {
+                    new Effect.Highlight(element.id, {startcolor: "#00ffff"});
+                    element.innerHTML=transport.responseText.evalJSON().#{object.class.name.demodulize.tableize.singularize}.#{property};
+                  }
+                },
+                onFailure: function(effect, transport) {
+                  new Effect.Highlight(effect.element, {startcolor: "#ff0000"});
+                }
+        EOJS
         tg += ",#{options_for_edit}" unless options_for_edit.empty?
         tg += "});\n"
-        tg += "         </script>\n"
+        tg += "</script>\n"
       end
     end
     
