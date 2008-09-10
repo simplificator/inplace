@@ -22,7 +22,7 @@ module Inplace
     # ajax_options
     #   * __method__ is always set to **put**
     def editable_content_tag(element_type, object, property, editable = false, url = nil, element_options = {}, edit_options = {}, ajax_options = {})
-      object_name = object.class.to_s.downcase
+      object_name = object.class.to_s.underscore
       element_options ||= {}
       element_options[:id] = dom_id(object)+"_#{property}" if element_options[:id].blank?()
 
