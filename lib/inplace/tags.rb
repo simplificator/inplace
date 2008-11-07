@@ -26,7 +26,7 @@ module Inplace
       element_options ||= {}
       element_options[:id] = dom_id(object)+"_#{property}" if element_options[:id].blank?()
 
-      url ||= "/#{object_name.pluralize}/#{object.id}"
+      url ||= "/#{object_name.pluralize}/#{object.to_param}"
       url += '.json'
 
       ajax_options[:method] = 'put'
