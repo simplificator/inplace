@@ -1,1 +1,1 @@
-require 'inplace'
+require 'billboard_api_queue'
