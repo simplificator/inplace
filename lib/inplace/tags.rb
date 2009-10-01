@@ -33,7 +33,7 @@ module Inplace
       options_for_edit = jsonify(edit_options)
       options_for_ajax = jsonify(ajax_options)
 
-      tg = content_tag(element_type, object.send(property), element_options)
+      tg = content_tag(element_type, h(object.send(property)), element_options)
 
       if editable then
         put_params = protect_against_forgery? ?  "&authenticity_token=#{form_authenticity_token}" : ''
@@ -50,7 +50,8 @@ module Inplace
                 onComplete: function(transport, element) {
                   if (transport && transport.status == 200) {
                     new Effect.Highlight(element.id, {startcolor: "#00ffff"});
-                    element.innerHTML=transport.responseText.evalJSON().#{object.class.name.demodulize.tableize.singularize}.#{property};
+                    var value = transport.responseText.evalJSON().#{object.class.name.demodulize.tableize.singularize}.#{property};
+                    element.innerHTML = value.escapeHTML();
                   }
                 },
                 onFailure: function(effect, transport) {

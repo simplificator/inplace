@@ -3,13 +3,9 @@
     <type>org.netbeans.modules.ruby.rubyproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/ruby-project/1">
-            <name>inplace plugin</name>
-            <source-roots>
-                <root id="src.dir"/>
-            </source-roots>
-            <test-roots>
-                <root id="test.src.dir"/>
-            </test-roots>
+            <name>inplace editor</name>
+            <source-roots/>
+            <test-roots/>
         </data>
     </configuration>
 </project>
